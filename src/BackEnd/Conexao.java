@@ -57,7 +57,7 @@ public class Conexao {
         }                
     }    
     
-    public void setComboBox(JComboBox ComboBox, String TableName) {
+    public void setComboBoxPaciente(JComboBox ComboBox, String TableName) {
         //Limpar o combobox
         ComboBox.removeAllItems();
         
@@ -77,13 +77,47 @@ public class Conexao {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    public String getCodigoComboBox(JComboBox ComboBox, String TableName) {
+    public void setComboBoxConsultas(JComboBox ComboBox, String TableName) {
+        //Limpar o combobox
+        ComboBox.removeAllItems();
+        
+        //Listar itens para adicionar no combobox
+        try {
+            this.setResultSet("SELECT idconsultas FROM consultas ORDER BY idconsultas");
+            if (this.getResultSet().first()) {
+                do {
+                    ComboBox.addItem(this.getResultSet().getString("idconsultas"));
+                } while(this.getResultSet().next());
+                
+                //Deixar sem seleção
+                ComboBox.setSelectedIndex(-1);
+            }
+        }
+        catch(SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+    public String getCodigoComboBoxPacientes(JComboBox ComboBox, String TableName) {
         String Codigo = "-1";
         try {
             this.setResultSet("SELECT idpaciente FROM pacientes WHERE nomepaciente LIKE '" + ComboBox.getSelectedItem() + "'");
 
             if (this.getResultSet().first()) 
                  Codigo = this.getResultSet().getString("idpaciente");
+   
+        }
+        catch(SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        return Codigo;
+    }
+    public String getCodigoComboBoxConsultas(JComboBox ComboBox, String TableName) {
+        String Codigo = "-1";
+        try {
+            this.setResultSet("SELECT idconsultas FROM consultas WHERE idconsultas LIKE '" + ComboBox.getSelectedItem() + "'");
+
+            if (this.getResultSet().first()) 
+                 Codigo = this.getResultSet().getString("idconsultas");
    
         }
         catch(SQLException e) {

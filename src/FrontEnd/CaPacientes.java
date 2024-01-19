@@ -166,6 +166,7 @@ public class CaPacientes extends javax.swing.JDialog {
                     "Excluir",
                     JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 String CodPaciente = String.valueOf(grdPacientes.getValueAt(grdPacientes.getSelectedRow(), 0));
+                this.c.SQLExecute("DELETE FROM consultas WHERE idpaciente = " + CodPaciente);
                 this.c.SQLExecute("DELETE FROM pacientes WHERE idpaciente = " + CodPaciente);
                 this.GetListarPacientes();
             }

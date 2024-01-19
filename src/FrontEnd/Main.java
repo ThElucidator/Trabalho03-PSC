@@ -1,5 +1,8 @@
 package FrontEnd;
 import BackEnd.Conexao;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class Main extends javax.swing.JFrame {
 
@@ -8,11 +11,39 @@ public class Main extends javax.swing.JFrame {
      * Creates new form Main
      */
     public Main() {
-        int c;
         initComponents();
+        int c;
         this.c = new Conexao();
     }
 
+    private void GetListarConsultas() {
+        DefaultTableModel d = (DefaultTableModel) grdMenu.getModel();
+        
+        //Limpar linhas
+        while(d.getRowCount() > 0)
+            d.removeRow(0);
+        
+        //Definir SQL
+        this.c.setResultSet("SELECT * FROM espera as E INNER JOIN pacientes as P ON E.idpaciente = P.idpaciente INNER JOIN consultas as C ON E.idconsultas = C.iconsultas");
+        
+        //Mostrar resultado
+        try {
+            if (this.c.getResultSet().first()) {
+                do {
+                    d.addRow(
+                       new Object[] {
+                           this.c.getResultSet().getString("E.idespera"),
+                           this.c.getResultSet().getString("E.horariochegada"),
+                           this.c.getResultSet().getString("P.nomepaciente")
+                       }
+                    );                 
+                } while(this.c.getResultSet().next());
+            }
+        }
+        catch(SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }
 /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,6 +69,11 @@ public class Main extends javax.swing.JFrame {
         txtData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
 
         btnNovoEspera.setText("Nova Espera");
+        btnNovoEspera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoEsperaActionPerformed(evt);
+            }
+        });
 
         grdMenu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -135,6 +171,12 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
         new CaAgendamento().setVisible(true);
     }//GEN-LAST:event_jMenuConsultasActionPerformed
+
+    private void btnNovoEsperaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoEsperaActionPerformed
+        // TODO add your handling code here:
+        new CaEspera(-1).setVisible(true);
+        this.GetListarConsultas();
+    }//GEN-LAST:event_btnNovoEsperaActionPerformed
 
      public static void main(String args[]) {
         /* Set the Nimbus look and feel */

@@ -26,7 +26,7 @@ public class CaAgendamentoEntrada extends javax.swing.JDialog {
         
         
     //Carregar combobox
-        this.c.setComboBox(CBPaciente, "pacientes");
+        this.c.setComboBoxPaciente(CBPaciente, "pacientes");
     
     
     //Edição
@@ -153,7 +153,7 @@ public class CaAgendamentoEntrada extends javax.swing.JDialog {
         // TODO add your handling code here:
         new CaPacientesEntrada(-1).setVisible(true);
         //Carregar combobox
-        this.c.setComboBox(CBPaciente, "pacientes");
+        this.c.setComboBoxPaciente(CBPaciente, "pacientes");
     }//GEN-LAST:event_btnNovoPacienteActionPerformed
 
     private void CBPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBPacienteActionPerformed
@@ -176,12 +176,12 @@ public class CaAgendamentoEntrada extends javax.swing.JDialog {
             //Cadastrar
             if (this.Consulta == -1) {
                 Msg = "Registro adicionado com sucesso";
-                SQL = "INSERT INTO consultas (dataconsulta,idpaciente) VALUES ('"+ txtDataConsulta.getText() +"','"+this.c.getCodigoComboBox(CBPaciente,"Paciente")+"')";
+                SQL = "INSERT INTO consultas (dataconsulta,idpaciente) VALUES ('"+ txtDataConsulta.getText() +"','"+this.c.getCodigoComboBoxPacientes(CBPaciente,"Paciente")+"')";
             }                                                                                                                       
             //Editar
             else {
                 Msg = "Registro editado com sucesso";
-                SQL = "UPDATE consultas SET dataconsulta = '"+txtDataConsulta.getText()+"',idpaciente = '"+this.c.getCodigoComboBox(CBPaciente, "pacientes")+"' WHERE idconsultas = "+Consulta;                              
+                SQL = "UPDATE consultas SET dataconsulta = '"+txtDataConsulta.getText()+"',idpaciente = '"+this.c.getCodigoComboBoxPacientes(CBPaciente, "pacientes")+"' WHERE idconsultas = "+Consulta;                              
             }
             this.c.SQLExecute(SQL);
             JOptionPane.showMessageDialog(this, Msg);
