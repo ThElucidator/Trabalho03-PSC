@@ -36,7 +36,7 @@ public class CaAgendamento extends javax.swing.JDialog {
                 do {
                     d.addRow(
                        new Object[] {
-                           this.c.getResultSet().getString("C.idconsultas") ,
+                           this.c.getResultSet().getString("C.idconsultas"),
                            this.c.getResultSet().getString("C.dataconsulta"),
                            this.c.getResultSet().getString("P.nomepaciente")
                        }
@@ -81,17 +81,17 @@ public class CaAgendamento extends javax.swing.JDialog {
 
         grdAgendamento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Horário", "Paciente"
+                "Código", "Data", "Paciente"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                true, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
