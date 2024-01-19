@@ -37,8 +37,8 @@ public class CaAgendamento extends javax.swing.JDialog {
                     d.addRow(
                        new Object[] {
                            this.c.getResultSet().getString("C.idconsultas") ,
-                           this.c.getResultSet().getString("P.nomepaciente"),
-                           this.c.getResultSet().getString("C.dataconsulta")
+                           this.c.getResultSet().getString("C.dataconsulta"),
+                           this.c.getResultSet().getString("P.nomepaciente")
                        }
                     );                 
                 } while(this.c.getResultSet().next());
@@ -212,7 +212,7 @@ public class CaAgendamento extends javax.swing.JDialog {
                         "Excluir", 
                         JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                             String Consulta = String.valueOf(grdAgendamento.getValueAt(grdAgendamento.getSelectedRow(), 0));
-                            this.c.SQLExecute("DELETE FROM consultas WHERE idconsultas = " + Consulta);
+                            this.c.SQLExecute("DELETE FROM consultas WHERE idconsulta = " + Consulta);
                             this.GetListarConsultas();
                 }
             }

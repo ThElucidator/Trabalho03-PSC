@@ -181,7 +181,7 @@ public class CaAgendamentoEntrada extends javax.swing.JDialog {
             //Editar
             else {
                 Msg = "Registro editado com sucesso";
-                SQL = "UPDATE consultas SET dataconsulta = '"+txtDataConsulta.getText()+"',idpaciente = '"+this.c.getCodigoComboBox(CBPaciente, "pacientes")+"' WHERE consultas = "+Consulta;                              
+                SQL = "UPDATE consultas SET dataconsulta = '"+txtDataConsulta.getText()+"',idpaciente = '"+this.c.getCodigoComboBox(CBPaciente, "pacientes")+"' WHERE idconsultas = "+Consulta;                              
             }
             this.c.SQLExecute(SQL);
             JOptionPane.showMessageDialog(this, Msg);
