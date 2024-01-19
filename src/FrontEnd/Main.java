@@ -23,11 +23,11 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         txtData = new javax.swing.JFormattedTextField();
-        btnCadastro = new javax.swing.JButton();
+        btnNovoEspera = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblAgendamento = new javax.swing.JTable();
+        grdMenu = new javax.swing.JTable();
         lblData = new javax.swing.JLabel();
-        btnCadastro2 = new javax.swing.JButton();
+        btnExclEspera = new javax.swing.JButton();
         MnMain = new javax.swing.JMenuBar();
         MnCadastro = new javax.swing.JMenu();
         jMenuPaciente = new javax.swing.JMenuItem();
@@ -37,9 +37,9 @@ public class Main extends javax.swing.JFrame {
 
         txtData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
 
-        btnCadastro.setText("Nova Espera");
+        btnNovoEspera.setText("Nova Espera");
 
-        tblAgendamento.setModel(new javax.swing.table.DefaultTableModel(
+        grdMenu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -58,11 +58,11 @@ public class Main extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tblAgendamento);
+        jScrollPane1.setViewportView(grdMenu);
 
         lblData.setText("Data:");
 
-        btnCadastro2.setText("Excluir Espera");
+        btnExclEspera.setText("Excluir Espera");
 
         MnCadastro.setText("Acessar Cadastros");
 
@@ -102,9 +102,9 @@ public class Main extends javax.swing.JFrame {
                 .addGap(5, 5, 5))
             .addGroup(layout.createSequentialGroup()
                 .addGap(75, 75, 75)
-                .addComponent(btnCadastro)
+                .addComponent(btnNovoEspera)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCadastro2)
+                .addComponent(btnExclEspera)
                 .addGap(85, 85, 85))
         );
         layout.setVerticalGroup(
@@ -118,8 +118,8 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCadastro)
-                    .addComponent(btnCadastro2))
+                    .addComponent(btnNovoEspera)
+                    .addComponent(btnExclEspera))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -172,13 +172,13 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MnCadastro;
     private javax.swing.JMenuBar MnMain;
-    private javax.swing.JButton btnCadastro;
-    private javax.swing.JButton btnCadastro2;
+    private javax.swing.JButton btnExclEspera;
+    private javax.swing.JButton btnNovoEspera;
+    private javax.swing.JTable grdMenu;
     private javax.swing.JMenuItem jMenuConsultas;
     private javax.swing.JMenuItem jMenuPaciente;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblData;
-    private javax.swing.JTable tblAgendamento;
     private javax.swing.JFormattedTextField txtData;
     // End of variables declaration//GEN-END:variables
 }

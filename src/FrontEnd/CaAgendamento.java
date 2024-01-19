@@ -4,17 +4,49 @@
  */
 package FrontEnd;
 
+import BackEnd.Conexao;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 public class CaAgendamento extends javax.swing.JDialog {
 
-    
+    private Conexao c;
     
     public CaAgendamento() {
         initComponents();
+        this.setModal(true);
+        this.c = new Conexao();
+        this.GetListarConsultas();
+    }
+    
+    private void GetListarConsultas() {
+        DefaultTableModel d = (DefaultTableModel) grdAgendamento.getModel();
+        
+        //Limpar linhas
+        while(d.getRowCount() > 0)
+            d.removeRow(0);
+        
+        //Definir SQL
+        this.c.setResultSet("SELECT * FROM consultas as C INNER JOIN pacientes as P ON C.idpaciente = P.idpaciente");
+        
+        //Mostrar resultado
+        try {
+            if (this.c.getResultSet().first()) {
+                do {
+                    d.addRow(
+                       new Object[] {
+                           this.c.getResultSet().getString("C.idconsultas") ,
+                           this.c.getResultSet().getString("P.nomepaciente"),
+                           this.c.getResultSet().getString("C.dataconsulta")
+                       }
+                    );                 
+                } while(this.c.getResultSet().next());
+            }
+        }
+        catch(SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }
 
     /**
@@ -27,22 +59,27 @@ public class CaAgendamento extends javax.swing.JDialog {
     private void initComponents() {
 
         txtData = new javax.swing.JFormattedTextField();
-        btnCadastro = new javax.swing.JButton();
+        btnNovoAgendamento = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblAgendamento = new javax.swing.JTable();
+        grdAgendamento = new javax.swing.JTable();
         lblData = new javax.swing.JLabel();
-        btnCadastro1 = new javax.swing.JButton();
-        btnCadastro2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnEditarAgendamento = new javax.swing.JButton();
+        btnExclAgendamento = new javax.swing.JButton();
+        btnMenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Usuarios");
 
         txtData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
 
-        btnCadastro.setText("Novo Agendamento");
+        btnNovoAgendamento.setText("Novo Agendamento");
+        btnNovoAgendamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoAgendamentoActionPerformed(evt);
+            }
+        });
 
-        tblAgendamento.setModel(new javax.swing.table.DefaultTableModel(
+        grdAgendamento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -61,18 +98,18 @@ public class CaAgendamento extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tblAgendamento);
+        jScrollPane1.setViewportView(grdAgendamento);
 
         lblData.setText("Data:");
 
-        btnCadastro1.setText("Editar Agendamento");
+        btnEditarAgendamento.setText("Editar Agendamento");
 
-        btnCadastro2.setText("Excluir Agendamento");
+        btnExclAgendamento.setText("Excluir Agendamento");
 
-        jButton1.setText("Retornar ao Menu");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnMenu.setText("Retornar ao Menu");
+        btnMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnMenuActionPerformed(evt);
             }
         });
 
@@ -95,16 +132,16 @@ public class CaAgendamento extends javax.swing.JDialog {
                         .addGap(5, 5, 5))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(btnCadastro)
+                        .addComponent(btnNovoAgendamento)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addComponent(jButton1)
+                                .addComponent(btnMenu)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(btnCadastro1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnEditarAgendamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addComponent(btnCadastro2)))
+                        .addComponent(btnExclAgendamento)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -118,11 +155,11 @@ public class CaAgendamento extends javax.swing.JDialog {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCadastro)
-                    .addComponent(btnCadastro1)
-                    .addComponent(btnCadastro2))
+                    .addComponent(btnNovoAgendamento)
+                    .addComponent(btnEditarAgendamento)
+                    .addComponent(btnExclAgendamento))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(btnMenu)
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -130,21 +167,27 @@ public class CaAgendamento extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
         // TODO add your handling code here:
         new Main().setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnMenuActionPerformed
+
+    private void btnNovoAgendamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoAgendamentoActionPerformed
+        // TODO add your handling code here:
+        new CaAgendamentoEntrada(-1).setVisible(true);
+        this.GetListarConsultas();
+    }//GEN-LAST:event_btnNovoAgendamentoActionPerformed
 
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCadastro;
-    private javax.swing.JButton btnCadastro1;
-    private javax.swing.JButton btnCadastro2;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnEditarAgendamento;
+    private javax.swing.JButton btnExclAgendamento;
+    private javax.swing.JButton btnMenu;
+    private javax.swing.JButton btnNovoAgendamento;
+    private javax.swing.JTable grdAgendamento;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblData;
-    private javax.swing.JTable tblAgendamento;
     private javax.swing.JFormattedTextField txtData;
     // End of variables declaration//GEN-END:variables
 }

@@ -31,13 +31,14 @@ public class CaPacientesEntrada extends javax.swing.JDialog {
             
             //Carregar os campos
             try {
-                String SQL = " SELECT Nome,CPF,Celular,Endereco FROM Paciente WHERE CodPaciente = " + CodPaciente;
+                String SQL = " SELECT nomepaciente,CPFpaciente,enderecopaciente,contatospaciente,observacoespaciente FROM pacientes WHERE idpaciente = " + CodPaciente;
                 this.c.setResultSet(SQL);
                 this.c.getResultSet().first();
-                txtNome.setText(this.c.getResultSet().getString("Nome"));    
-                txtCPF.setText(this.c.getResultSet().getString("CPF")); 
-                txtCelular.setText(this.c.getResultSet().getString("Celular")); 
-                txtEndereco.setText(this.c.getResultSet().getString("Endereco")); 
+                txtNome.setText(this.c.getResultSet().getString("nomepaciente"));    
+                txtCPF.setText(this.c.getResultSet().getString("CPFpaciente")); 
+                txtEndereco.setText(this.c.getResultSet().getString("enderecopaciente"));
+                txtCelular.setText(this.c.getResultSet().getString("contatospaciente")); 
+                txtObservacoes.setText(this.c.getResultSet().getString("observacoespaciente")); 
             }
             catch(SQLException e) {
                 JOptionPane.showMessageDialog(this, e.getMessage());
@@ -64,7 +65,7 @@ public class CaPacientesEntrada extends javax.swing.JDialog {
         lblEndereco = new javax.swing.JLabel();
         txtEndereco = new javax.swing.JTextField();
         txtCPF = new javax.swing.JFormattedTextField();
-        txtEndereco1 = new javax.swing.JTextField();
+        txtObservacoes = new javax.swing.JTextField();
         lblEndereco1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -109,9 +110,9 @@ public class CaPacientesEntrada extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
-        txtEndereco1.addActionListener(new java.awt.event.ActionListener() {
+        txtObservacoes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEndereco1ActionPerformed(evt);
+                txtObservacoesActionPerformed(evt);
             }
         });
 
@@ -124,7 +125,7 @@ public class CaPacientesEntrada extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtEndereco1)
+                    .addComponent(txtObservacoes)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblNome)
@@ -161,7 +162,7 @@ public class CaPacientesEntrada extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblEndereco1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtEndereco1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtObservacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(btnCadastrar)
                 .addGap(14, 14, 14))
@@ -193,12 +194,12 @@ public class CaPacientesEntrada extends javax.swing.JDialog {
             //Cadastrar
             if (this.CodPaciente == -1) {
                 Msg = "Registro adicionado com sucesso";
-                SQL = "INSERT INTO Paciente (Nome,CPF,Celular,Endereco) VALUES ('"+ txtNome.getText() +"','"+ txtCPF.getText() +"','"+ txtCelular.getText() +"','"+ txtEndereco.getText() +"')";
+                SQL = "INSERT INTO pacientes (nomepaciente,CPFpaciente,contatospaciente,enderecopaciente,observacoespaciente) VALUES ('"+ txtNome.getText() +"','"+ txtCPF.getText() +"','"+ txtCelular.getText() +"','"+ txtEndereco.getText() +"','"+ txtObservacoes.getText() +"')";
             }
             //Editar
             else {
                 Msg = "Registro editado com sucesso";
-                SQL = "UPDATE Paciente SET Nome = '"+txtNome.getText()+"',CPF = '"+txtCPF.getText()+"',Celular = '"+txtCelular.getText()+"',Endereco = '"+txtEndereco.getText()+"' WHERE CodPaciente = "+CodPaciente;                              
+                SQL = "UPDATE pacientes SET nomepaciente = '"+txtNome.getText()+"',CPFpaciente = '"+txtCPF.getText()+"',contatospaciente = '"+txtCelular.getText()+"',enderecopaciente = '"+txtEndereco.getText()+"',observacoespaciente = '"+txtObservacoes.getText()+"' WHERE idpaciente = "+CodPaciente;                              
             }
             this.c.SQLExecute(SQL);
             JOptionPane.showMessageDialog(this, Msg);
@@ -214,9 +215,9 @@ public class CaPacientesEntrada extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEnderecoActionPerformed
 
-    private void txtEndereco1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEndereco1ActionPerformed
+    private void txtObservacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtObservacoesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtEndereco1ActionPerformed
+    }//GEN-LAST:event_txtObservacoesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -232,7 +233,7 @@ public class CaPacientesEntrada extends javax.swing.JDialog {
     private javax.swing.JFormattedTextField txtCPF;
     private javax.swing.JFormattedTextField txtCelular;
     private javax.swing.JTextField txtEndereco;
-    private javax.swing.JTextField txtEndereco1;
     private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtObservacoes;
     // End of variables declaration//GEN-END:variables
 }
