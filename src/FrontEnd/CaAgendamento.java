@@ -103,8 +103,18 @@ public class CaAgendamento extends javax.swing.JDialog {
         lblData.setText("Data:");
 
         btnEditarAgendamento.setText("Editar Agendamento");
+        btnEditarAgendamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarAgendamentoActionPerformed(evt);
+            }
+        });
 
         btnExclAgendamento.setText("Excluir Agendamento");
+        btnExclAgendamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExclAgendamentoActionPerformed(evt);
+            }
+        });
 
         btnMenu.setText("Retornar ao Menu");
         btnMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -177,6 +187,41 @@ public class CaAgendamento extends javax.swing.JDialog {
         new CaAgendamentoEntrada(-1).setVisible(true);
         this.GetListarConsultas();
     }//GEN-LAST:event_btnNovoAgendamentoActionPerformed
+
+    private void btnEditarAgendamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAgendamentoActionPerformed
+        // TODO add your handling code here:
+        if (grdAgendamento.getRowCount() > 0) {
+            if (grdAgendamento.getSelectedRowCount() > 0) {
+                String Consulta = String.valueOf(grdAgendamento.getValueAt(grdAgendamento.getSelectedRow(), 0));
+                new CaAgendamentoEntrada(Integer.valueOf(Consulta)).setVisible(true);
+                this.GetListarConsultas();
+            }
+            else
+                JOptionPane.showMessageDialog(this, "Selecionar uma consulta");
+        }
+        else
+            JOptionPane.showMessageDialog(this, "Não existem consultas cadastradas");   
+    }//GEN-LAST:event_btnEditarAgendamentoActionPerformed
+
+    private void btnExclAgendamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExclAgendamentoActionPerformed
+        // TODO add your handling code here:
+        if (grdAgendamento.getRowCount() > 0) {
+            if (grdAgendamento.getSelectedRowCount() > 0) {
+                if (JOptionPane.showConfirmDialog(this, 
+                        "Confirmar exclusão da consulta?", 
+                        "Excluir", 
+                        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                            String Consulta = String.valueOf(grdAgendamento.getValueAt(grdAgendamento.getSelectedRow(), 0));
+                            this.c.SQLExecute("DELETE FROM consultas WHERE idconsultas = " + Consulta);
+                            this.GetListarConsultas();
+                }
+            }
+            else
+                JOptionPane.showMessageDialog(this, "Selecionar uma consulta");
+        }
+        else
+            JOptionPane.showMessageDialog(this, "Não existem consultas cadastradas");
+    }//GEN-LAST:event_btnExclAgendamentoActionPerformed
 
 
 

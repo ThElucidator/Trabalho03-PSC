@@ -131,11 +131,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Editar Agendamento"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditarAgendamentoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnExclAgendamento">
       <Properties>
         <Property name="text" type="java.lang.String" value="Excluir Agendamento"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExclAgendamentoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnMenu">
       <Properties>
