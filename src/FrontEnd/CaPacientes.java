@@ -158,23 +158,17 @@ public class CaPacientes extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExclPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExclPacienteActionPerformed
-        // TODO add your handling code here:
         if (grdPacientes.getRowCount() > 0) {
             if (grdPacientes.getSelectedRowCount() > 0) {
-                if (JOptionPane.showConfirmDialog(this, 
-                        "Confirmar exclusão do paciente?", 
-                        "Excluir", 
-                        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                            String CodPaciente = String.valueOf(grdPacientes.getValueAt(grdPacientes.getSelectedRow(), 0));
-                            this.c.SQLExecute("DELETE FROM pacientes WHERE idpaciente = " + CodPaciente);
-                            this.GetListarPacientes();
-                }
+                String CodPaciente = String.valueOf(grdPacientes.getValueAt(grdPacientes.getSelectedRow(), 0));
+                new CaPacientesEntrada(Integer.valueOf(CodPaciente)).setVisible(true);
+                this.GetListarPacientes();
             }
             else
                 JOptionPane.showMessageDialog(this, "Selecionar um paciente");
         }
         else
-            JOptionPane.showMessageDialog(this, "Não existem pacientes cadastrados");
+            JOptionPane.showMessageDialog(this, "Não existem pacientes cadastrados");     
     }//GEN-LAST:event_btnExclPacienteActionPerformed
 
     private void btnEditarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarPacienteActionPerformed

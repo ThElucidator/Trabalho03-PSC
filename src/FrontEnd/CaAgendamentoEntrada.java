@@ -26,7 +26,7 @@ public class CaAgendamentoEntrada extends javax.swing.JDialog {
         
         
     //Carregar combobox
-        this.c.setComboBox(CBPaciente, "Paciente");
+        this.c.setComboBox(CBPaciente, "pacientes");
     
     
     //Edição

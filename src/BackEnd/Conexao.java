@@ -63,10 +63,10 @@ public class Conexao {
         
         //Listar itens para adicionar no combobox
         try {
-            this.setResultSet("SELECT Nome FROM " + TableName + " ORDER BY Nome");
+            this.setResultSet("SELECT nomepaciente FROM pacientes ORDER BY nomepaciente");
             if (this.getResultSet().first()) {
                 do {
-                    ComboBox.addItem(this.getResultSet().getString("Nome"));
+                    ComboBox.addItem(this.getResultSet().getString("nomepaciente"));
                 } while(this.getResultSet().next());
                 
                 //Deixar sem seleção
@@ -80,12 +80,10 @@ public class Conexao {
     public String getCodigoComboBox(JComboBox ComboBox, String TableName) {
         String Codigo = "-1";
         try {
-            this.setResultSet("SELECT Cod" + TableName +
-                    " FROM " + TableName + 
-                    " WHERE Nome LIKE '" + ComboBox.getSelectedItem() + "'");
+            this.setResultSet("SELECT idpaciente FROM pacientes WHERE nomepaciente LIKE '" + ComboBox.getSelectedItem() + "'");
 
             if (this.getResultSet().first()) 
-                 Codigo = this.getResultSet().getString("Cod" + TableName);
+                 Codigo = this.getResultSet().getString("idpaciente");
    
         }
         catch(SQLException e) {
