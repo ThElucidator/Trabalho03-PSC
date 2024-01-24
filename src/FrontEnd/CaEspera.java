@@ -27,6 +27,7 @@ public class CaEspera extends javax.swing.JDialog {
         this.Espera = Espera;
     
     //Carregar combobox
+        
         this.c.setComboBoxConsultas(CBAgendamento, "consultas");
     }
 
@@ -177,7 +178,6 @@ public class CaEspera extends javax.swing.JDialog {
                         + "'"+this.c.getCodigoComboBoxEsperaPaciente(CBAgendamento, "consultas")+"',"
                         + "'"+this.c.getCodigoComboBoxConsultas(CBAgendamento,"consultas")+"')";
             } 
-            System.out.println(SQL);
             this.c.SQLExecute(SQL);
             
             JOptionPane.showMessageDialog(this, Msg);
