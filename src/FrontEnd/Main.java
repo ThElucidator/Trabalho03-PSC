@@ -14,6 +14,7 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         int c;
         this.c = new Conexao();
+        this.GetListarEsperas();
     }
 
     private void GetListarEsperas() {
@@ -73,17 +74,17 @@ public class Main extends javax.swing.JFrame {
 
         grdMenu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Horário de Entrada", "Nome do Paciente"
+                "Código", "Horário de Entrada", "Nome do Paciente"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

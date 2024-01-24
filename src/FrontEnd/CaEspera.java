@@ -173,10 +173,11 @@ public class CaEspera extends javax.swing.JDialog {
                 LocalDateTime now = LocalDateTime.now();  
                 SQL = "INSERT INTO espera (idespera,horariochegada,idpaciente,idconsulta) "
                         + "VALUES ('"+this.c.getCodigoComboBoxConsultas(CBAgendamento,"consultas")+"',"
-                        + "'"+now+"',"
-                        + "'"+this.c.getCodigoComboBoxPacientes(CBAgendamento, "pacientes")+"',"
+                        + "'"+dtf.format(now)+"',"
+                        + "'"+this.c.getCodigoComboBoxEsperaPaciente(CBAgendamento, "consultas")+"',"
                         + "'"+this.c.getCodigoComboBoxConsultas(CBAgendamento,"consultas")+"')";
-            }                                                                                                                 
+            } 
+            System.out.println(SQL);
             this.c.SQLExecute(SQL);
             
             JOptionPane.showMessageDialog(this, Msg);

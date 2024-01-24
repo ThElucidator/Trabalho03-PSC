@@ -125,6 +125,20 @@ public class Conexao {
         }
         return Codigo;
     }
+    public String getCodigoComboBoxEsperaPaciente(JComboBox ComboBox, String TableName) {
+        String Codigo = "-1";
+        try {
+            this.setResultSet("SELECT idpaciente FROM consultas WHERE idconsulta LIKE '" + ComboBox.getSelectedItem() + "'");
+
+            if (this.getResultSet().first()) 
+                 Codigo = this.getResultSet().getString("idpaciente");
+   
+        }
+        catch(SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        return Codigo;
+    }
     
     public ResultSet getResultSet() {
         return rs;
