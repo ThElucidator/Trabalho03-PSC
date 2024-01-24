@@ -36,7 +36,7 @@ public class CaAgendamento extends javax.swing.JDialog {
                 do {
                     d.addRow(
                        new Object[] {
-                           this.c.getResultSet().getString("C.idconsultas"),
+                           this.c.getResultSet().getString("C.idconsulta"),
                            this.c.getResultSet().getString("C.dataconsulta"),
                            this.c.getResultSet().getString("P.nomepaciente")
                        }
@@ -58,19 +58,15 @@ public class CaAgendamento extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtData = new javax.swing.JFormattedTextField();
         btnNovoAgendamento = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         grdAgendamento = new javax.swing.JTable();
-        lblData = new javax.swing.JLabel();
         btnEditarAgendamento = new javax.swing.JButton();
         btnExclAgendamento = new javax.swing.JButton();
         btnMenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Usuarios");
-
-        txtData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
 
         btnNovoAgendamento.setText("Novo Agendamento");
         btnNovoAgendamento.addActionListener(new java.awt.event.ActionListener() {
@@ -100,8 +96,6 @@ public class CaAgendamento extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(grdAgendamento);
 
-        lblData.setText("Data:");
-
         btnEditarAgendamento.setText("Editar Agendamento");
         btnEditarAgendamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,18 +123,7 @@ public class CaAgendamento extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jScrollPane1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(356, 356, 356)
-                                .addComponent(lblData)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(5, 5, 5))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(btnNovoAgendamento)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -151,17 +134,14 @@ public class CaAgendamento extends javax.swing.JDialog {
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(btnEditarAgendamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addComponent(btnExclAgendamento)))
+                        .addComponent(btnExclAgendamento))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblData)
-                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -170,7 +150,7 @@ public class CaAgendamento extends javax.swing.JDialog {
                     .addComponent(btnExclAgendamento))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnMenu)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -180,6 +160,7 @@ public class CaAgendamento extends javax.swing.JDialog {
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
         // TODO add your handling code here:
         new Main().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnMenuActionPerformed
 
     private void btnNovoAgendamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoAgendamentoActionPerformed
@@ -214,6 +195,7 @@ public class CaAgendamento extends javax.swing.JDialog {
                             String Consulta = String.valueOf(grdAgendamento.getValueAt(grdAgendamento.getSelectedRow(), 0));
                             this.c.SQLExecute("DELETE FROM consultas WHERE idconsulta = " + Consulta);
                             this.GetListarConsultas();
+                            System.out.println(Consulta);
                 }
             }
             else
@@ -232,7 +214,5 @@ public class CaAgendamento extends javax.swing.JDialog {
     private javax.swing.JButton btnNovoAgendamento;
     private javax.swing.JTable grdAgendamento;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblData;
-    private javax.swing.JFormattedTextField txtData;
     // End of variables declaration//GEN-END:variables
 }

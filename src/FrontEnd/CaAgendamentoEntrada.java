@@ -36,7 +36,7 @@ public class CaAgendamentoEntrada extends javax.swing.JDialog {
             
             //Carregar os campos
             try {
-                String SQL = " SELECT C.idconsultas,C.dataconsulta,P.nomepaciente FROM consultas as C INNER JOIN pacientes as P ON C.idpaciente = P.idpaciente WHERE C.idconsultas = "+Consulta;
+                String SQL = " SELECT C.idconsulta,C.dataconsulta,P.nomepaciente FROM consultas as C INNER JOIN pacientes as P ON C.idpaciente = P.idpaciente WHERE C.idconsulta = "+Consulta;
                 this.c.setResultSet(SQL);
                 this.c.getResultSet().first();
                 txtDataConsulta.setText(this.c.getResultSet().getString("C.dataconsulta"));  
@@ -181,7 +181,7 @@ public class CaAgendamentoEntrada extends javax.swing.JDialog {
             //Editar
             else {
                 Msg = "Registro editado com sucesso";
-                SQL = "UPDATE consultas SET dataconsulta = '"+txtDataConsulta.getText()+"',idpaciente = '"+this.c.getCodigoComboBoxPacientes(CBPaciente, "pacientes")+"' WHERE idconsultas = "+Consulta;                              
+                SQL = "UPDATE consultas SET dataconsulta = '"+txtDataConsulta.getText()+"',idpaciente = '"+this.c.getCodigoComboBoxPacientes(CBPaciente, "pacientes")+"' WHERE idconsulta = "+Consulta;                              
             }
             this.c.SQLExecute(SQL);
             JOptionPane.showMessageDialog(this, Msg);

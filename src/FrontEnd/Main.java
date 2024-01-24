@@ -16,7 +16,7 @@ public class Main extends javax.swing.JFrame {
         this.c = new Conexao();
     }
 
-    private void GetListarConsultas() {
+    private void GetListarEsperas() {
         DefaultTableModel d = (DefaultTableModel) grdMenu.getModel();
         
         //Limpar linhas
@@ -24,7 +24,7 @@ public class Main extends javax.swing.JFrame {
             d.removeRow(0);
         
         //Definir SQL
-        this.c.setResultSet("SELECT * FROM espera as E INNER JOIN pacientes as P ON E.idpaciente = P.idpaciente INNER JOIN consultas as C ON E.idconsultas = C.iconsultas ORDER BY E.horariochegada");
+        this.c.setResultSet("SELECT * FROM espera as E INNER JOIN pacientes as P ON E.idpaciente = P.idpaciente INNER JOIN consultas as C ON E.idconsulta = C.idconsulta ORDER BY E.horariochegada");
         
         //Mostrar resultado
         try {
@@ -154,17 +154,19 @@ public class Main extends javax.swing.JFrame {
     private void jMenuPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuPacienteActionPerformed
         // TODO add your handling code here:
         new CaPacientes().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jMenuPacienteActionPerformed
 
     private void jMenuConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuConsultasActionPerformed
         // TODO add your handling code here:
         new CaAgendamento().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jMenuConsultasActionPerformed
 
     private void btnNovoEsperaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoEsperaActionPerformed
         // TODO add your handling code here:
         new CaEspera(-1).setVisible(true);
-        this.GetListarConsultas();
+        this.GetListarEsperas();
     }//GEN-LAST:event_btnNovoEsperaActionPerformed
 
     private void btnExclEsperaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExclEsperaActionPerformed
@@ -177,8 +179,8 @@ public class Main extends javax.swing.JFrame {
                         JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                             String Espera = String.valueOf(grdMenu.getValueAt(grdMenu.getSelectedRow(), 0));
                             this.c.SQLExecute("DELETE FROM espera WHERE idespera = " + Espera);
-                            this.c.SQLExecute("Delete FROM consultas WHERE idconsultas = " + Espera);
-                            this.GetListarConsultas();
+                            this.c.SQLExecute("DELETE FROM consultas WHERE idconsulta = " + Espera);
+                            this.GetListarEsperas();
                 }
             }
             else

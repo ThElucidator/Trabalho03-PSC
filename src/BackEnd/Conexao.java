@@ -83,10 +83,10 @@ public class Conexao {
         
         //Listar itens para adicionar no combobox
         try {
-            this.setResultSet("SELECT idconsultas FROM consultas ORDER BY idconsultas");
+            this.setResultSet("SELECT idconsulta FROM consultas ORDER BY idconsulta");
             if (this.getResultSet().first()) {
                 do {
-                    ComboBox.addItem(this.getResultSet().getString("idconsultas"));
+                    ComboBox.addItem(this.getResultSet().getString("idconsulta"));
                 } while(this.getResultSet().next());
                 
                 //Deixar sem seleção
@@ -114,10 +114,10 @@ public class Conexao {
     public String getCodigoComboBoxConsultas(JComboBox ComboBox, String TableName) {
         String Codigo = "-1";
         try {
-            this.setResultSet("SELECT idconsultas FROM consultas WHERE idconsultas LIKE '" + ComboBox.getSelectedItem() + "'");
+            this.setResultSet("SELECT idconsulta FROM consultas WHERE idconsulta LIKE '" + ComboBox.getSelectedItem() + "'");
 
             if (this.getResultSet().first()) 
-                 Codigo = this.getResultSet().getString("idconsultas");
+                 Codigo = this.getResultSet().getString("idconsulta");
    
         }
         catch(SQLException e) {

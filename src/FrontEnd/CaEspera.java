@@ -100,32 +100,23 @@ public class CaEspera extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblAgendamento1)
+                    .addComponent(lblAgendamento2)
+                    .addComponent(lblAgendamento)
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAtualizar)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(108, 108, 108)
-                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblAgendamento1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblAgendamento2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(txtData, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CBAgendamento, javax.swing.GroupLayout.Alignment.LEADING, 0, 300, Short.MAX_VALUE))
+                            .addComponent(CBAgendamento, javax.swing.GroupLayout.Alignment.LEADING, 0, 300, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(9, 9, 9)))
                         .addGap(18, 18, 18)
-                        .addComponent(btnNovoPaciente))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblAgendamento)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnAtualizar)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                        .addComponent(btnNovoPaciente)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,7 +129,7 @@ public class CaEspera extends javax.swing.JDialog {
                     .addComponent(btnNovoPaciente))
                 .addGap(18, 18, 18)
                 .addComponent(btnAtualizar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblAgendamento)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -146,9 +137,9 @@ public class CaEspera extends javax.swing.JDialog {
                 .addComponent(lblAgendamento2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(9, 9, 9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCadastrar)
-                .addGap(22, 22, 22))
+                .addGap(19, 19, 19))
         );
 
         pack();
@@ -157,9 +148,8 @@ public class CaEspera extends javax.swing.JDialog {
 
     private void btnNovoPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoPacienteActionPerformed
         // TODO add your handling code here:
-        new CaPacientesEntrada(-1).setVisible(true);
-        //Carregar combobox
-        this.c.setComboBoxPaciente(CBAgendamento, "pacientes");
+        new CaAgendamentoEntrada(-1).setVisible(true);
+        this.c.setComboBoxConsultas(CBAgendamento, "consultas");
     }//GEN-LAST:event_btnNovoPacienteActionPerformed
 
     private void CBAgendamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBAgendamentoActionPerformed
@@ -183,9 +173,9 @@ public class CaEspera extends javax.swing.JDialog {
                 LocalDateTime now = LocalDateTime.now();  
                 SQL = "INSERT INTO espera (idespera,horariochegada,idpaciente,idconsulta) "
                         + "VALUES ('"+this.c.getCodigoComboBoxConsultas(CBAgendamento,"consultas")+"',"
-                        + "'"+now+","
-                        + ",'"+this.c.getCodigoComboBoxPacientes(CBAgendamento, "pacientes")+","
-                        + ",'"+this.c.getCodigoComboBoxConsultas(CBAgendamento,"consultas")+",)";
+                        + "'"+now+"',"
+                        + "'"+this.c.getCodigoComboBoxPacientes(CBAgendamento, "pacientes")+"',"
+                        + "'"+this.c.getCodigoComboBoxConsultas(CBAgendamento,"consultas")+"')";
             }                                                                                                                 
             this.c.SQLExecute(SQL);
             
@@ -200,7 +190,7 @@ public class CaEspera extends javax.swing.JDialog {
         //Carregar os campos
     if(CBAgendamento.getSelectedItem()!= null)  { 
         try {
-            String SQL2 = " SELECT P.nomepaciente,C.dataconsulta FROM consultas as C INNER JOIN pacientes as P ON C.idpaciente = P.idpaciente WHERE C.idconsultas = "+CBAgendamento.getSelectedItem();
+            String SQL2 = " SELECT P.nomepaciente,C.dataconsulta FROM consultas as C INNER JOIN pacientes as P ON C.idpaciente = P.idpaciente WHERE C.idconsulta = "+CBAgendamento.getSelectedItem();
             this.c.setResultSet(SQL2);
             this.c.getResultSet().first();
             txtNome.setText(this.c.getResultSet().getString("P.nomepaciente"));  
@@ -213,7 +203,7 @@ public class CaEspera extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void CBAgendamentoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CBAgendamentoItemStateChanged
-        
+       
     }//GEN-LAST:event_CBAgendamentoItemStateChanged
 
     /**
