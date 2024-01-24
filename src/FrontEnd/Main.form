@@ -55,54 +55,34 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jScrollPane1" alignment="1" pref="454" max="32767" attributes="0"/>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="lblData" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtData" min="-2" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
+              <Component id="jScrollPane1" pref="454" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
               <Component id="btnNovoEspera" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="btnExclEspera" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblData" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtData" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="209" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnNovoEspera" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnExclEspera" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="14" max="32767" attributes="0"/>
+              <EmptySpace pref="15" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JFormattedTextField" name="txtData">
-      <Properties>
-        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-          <Format subtype="1" type="1"/>
-        </Property>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JButton" name="btnNovoEspera">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nova Espera"/>
@@ -147,15 +127,13 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="lblData">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Data:"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JButton" name="btnExclEspera">
       <Properties>
         <Property name="text" type="java.lang.String" value="Excluir Espera"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExclEsperaActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

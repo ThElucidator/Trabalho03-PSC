@@ -24,7 +24,7 @@ public class Main extends javax.swing.JFrame {
             d.removeRow(0);
         
         //Definir SQL
-        this.c.setResultSet("SELECT * FROM espera as E INNER JOIN pacientes as P ON E.idpaciente = P.idpaciente INNER JOIN consultas as C ON E.idconsultas = C.iconsultas");
+        this.c.setResultSet("SELECT * FROM espera as E INNER JOIN pacientes as P ON E.idpaciente = P.idpaciente INNER JOIN consultas as C ON E.idconsultas = C.iconsultas ORDER BY E.horariochegada");
         
         //Mostrar resultado
         try {
@@ -53,11 +53,9 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtData = new javax.swing.JFormattedTextField();
         btnNovoEspera = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         grdMenu = new javax.swing.JTable();
-        lblData = new javax.swing.JLabel();
         btnExclEspera = new javax.swing.JButton();
         MnMain = new javax.swing.JMenuBar();
         MnCadastro = new javax.swing.JMenu();
@@ -65,8 +63,6 @@ public class Main extends javax.swing.JFrame {
         jMenuConsultas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        txtData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
 
         btnNovoEspera.setText("Nova Espera");
         btnNovoEspera.addActionListener(new java.awt.event.ActionListener() {
@@ -96,9 +92,12 @@ public class Main extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(grdMenu);
 
-        lblData.setText("Data:");
-
         btnExclEspera.setText("Excluir Espera");
+        btnExclEspera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExclEsperaActionPerformed(evt);
+            }
+        });
 
         MnCadastro.setText("Acessar Cadastros");
 
@@ -128,35 +127,25 @@ public class Main extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lblData)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
                 .addGap(5, 5, 5))
             .addGroup(layout.createSequentialGroup()
-                .addGap(75, 75, 75)
+                .addGap(67, 67, 67)
                 .addComponent(btnNovoEspera)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnExclEspera)
-                .addGap(85, 85, 85))
+                .addGap(67, 67, 67))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblData)
-                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
+                .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNovoEspera)
                     .addComponent(btnExclEspera))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -177,6 +166,28 @@ public class Main extends javax.swing.JFrame {
         new CaEspera(-1).setVisible(true);
         this.GetListarConsultas();
     }//GEN-LAST:event_btnNovoEsperaActionPerformed
+
+    private void btnExclEsperaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExclEsperaActionPerformed
+        // TODO add your handling code here:
+        if (grdMenu.getRowCount()>0){
+            if (grdMenu.getSelectedRowCount()>0){
+                if(JOptionPane.showConfirmDialog(this,
+                        "Confirmar exclusão da espera?",
+                        "Excluir",
+                        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                            String Espera = String.valueOf(grdMenu.getValueAt(grdMenu.getSelectedRow(), 0));
+                            this.c.SQLExecute("DELETE FROM espera WHERE idespera = " + Espera);
+                            this.c.SQLExecute("Delete FROM consultas WHERE idconsultas = " + Espera);
+                            this.GetListarConsultas();
+                }
+            }
+            else
+                JOptionPane.showMessageDialog(this, "Selecionar uma Espera");
+        }
+        else
+            JOptionPane.showMessageDialog(this, "Não existem Esperas registradas");
+
+    }//GEN-LAST:event_btnExclEsperaActionPerformed
 
      public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -220,7 +231,5 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuConsultas;
     private javax.swing.JMenuItem jMenuPaciente;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblData;
-    private javax.swing.JFormattedTextField txtData;
     // End of variables declaration//GEN-END:variables
 }
