@@ -97,6 +97,28 @@ public class Conexao {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
+    
+    public void setComboBoxConsultasCondicional(JComboBox ComboBox, String TableName) {
+        //Limpar o combobox
+        ComboBox.removeAllItems();
+        
+        //Listar itens para adicionar no combobox
+        try {
+            this.setResultSet("SELECT idconsulta FROM consultas WHERE dataconsulta = DATE_FORMAT(now(), \"%Y-%m-%d\") AND situacaoconsulta IS NULL ORDER BY idconsulta");
+            if (this.getResultSet().first()) {
+                do {
+                    ComboBox.addItem(this.getResultSet().getString("idconsulta"));
+                } while(this.getResultSet().next());
+                
+                //Deixar sem seleção
+                ComboBox.setSelectedIndex(-1);
+            }
+        }
+        catch(SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+    
     public String getCodigoComboBoxPacientes(JComboBox ComboBox, String TableName) {
         String Codigo = "-1";
         try {

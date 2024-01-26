@@ -25,7 +25,7 @@ public class Main extends javax.swing.JFrame {
             d.removeRow(0);
         
         //Definir SQL
-        this.c.setResultSet("SELECT * FROM espera as E INNER JOIN pacientes as P ON E.idpaciente = P.idpaciente INNER JOIN consultas as C ON E.idconsulta = C.idconsulta ORDER BY E.horariochegada");
+        this.c.setResultSet("SELECT * FROM consultas as C INNER JOIN pacientes as P ON C.idpaciente = P.idpaciente WHERE situacaoconsulta LIKE 'em espera' ORDER BY C.horariochegada");
         
         //Mostrar resultado
         try {
@@ -33,8 +33,8 @@ public class Main extends javax.swing.JFrame {
                 do {
                     d.addRow(
                        new Object[] {
-                           this.c.getResultSet().getString("E.idespera"),
-                           this.c.getResultSet().getString("E.horariochegada"),
+                           this.c.getResultSet().getString("C.idconsulta"),
+                           this.c.getResultSet().getString("C.horariochegada"),
                            this.c.getResultSet().getString("P.nomepaciente")
                        }
                     );                 
@@ -179,7 +179,6 @@ public class Main extends javax.swing.JFrame {
                         "Excluir",
                         JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                             String Espera = String.valueOf(grdMenu.getValueAt(grdMenu.getSelectedRow(), 0));
-                            this.c.SQLExecute("DELETE FROM espera WHERE idespera = " + Espera);
                             this.c.SQLExecute("DELETE FROM consultas WHERE idconsulta = " + Espera);
                             this.GetListarEsperas();
                 }

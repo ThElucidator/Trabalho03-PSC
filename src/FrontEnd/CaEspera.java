@@ -28,7 +28,7 @@ public class CaEspera extends javax.swing.JDialog {
     
     //Carregar combobox
         
-        this.c.setComboBoxConsultas(CBAgendamento, "consultas");
+        this.c.setComboBoxConsultasCondicional(CBAgendamento, "consultas");
     }
 
     /**
@@ -150,7 +150,7 @@ public class CaEspera extends javax.swing.JDialog {
     private void btnNovoPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoPacienteActionPerformed
         // TODO add your handling code here:
         new CaAgendamentoEntrada(-1).setVisible(true);
-        this.c.setComboBoxConsultas(CBAgendamento, "consultas");
+        this.c.setComboBoxConsultasCondicional(CBAgendamento, "consultas");
     }//GEN-LAST:event_btnNovoPacienteActionPerformed
 
     private void CBAgendamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBAgendamentoActionPerformed
@@ -172,12 +172,9 @@ public class CaEspera extends javax.swing.JDialog {
                 Msg = "Registro adicionado com sucesso";
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");  
                 LocalDateTime now = LocalDateTime.now();  
-                SQL = "INSERT INTO espera (idespera,horariochegada,idpaciente,idconsulta) "
-                        + "VALUES ('"+this.c.getCodigoComboBoxConsultas(CBAgendamento,"consultas")+"',"
-                        + "'"+dtf.format(now)+"',"
-                        + "'"+this.c.getCodigoComboBoxEsperaPaciente(CBAgendamento, "consultas")+"',"
-                        + "'"+this.c.getCodigoComboBoxConsultas(CBAgendamento,"consultas")+"')";
+                SQL = "UPDATE consultas SET horariochegada = '"+dtf.format(now)+"', situacaoconsulta = 'em espera' WHERE idconsulta = " + CBAgendamento.getSelectedItem();
             } 
+            System.out.println(SQL);
             this.c.SQLExecute(SQL);
             
             JOptionPane.showMessageDialog(this, Msg);
