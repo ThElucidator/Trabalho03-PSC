@@ -195,7 +195,6 @@ public class CaAgendamento extends javax.swing.JDialog {
                             String Consulta = String.valueOf(grdAgendamento.getValueAt(grdAgendamento.getSelectedRow(), 0));
                             this.c.SQLExecute("DELETE FROM consultas WHERE idconsulta = " + Consulta);
                             this.GetListarConsultas();
-                            System.out.println(Consulta);
                 }
             }
             else

@@ -174,7 +174,6 @@ public class CaEspera extends javax.swing.JDialog {
                 LocalDateTime now = LocalDateTime.now();  
                 SQL = "UPDATE consultas SET horariochegada = '"+dtf.format(now)+"', situacaoconsulta = 'em espera' WHERE idconsulta = " + CBAgendamento.getSelectedItem();
             } 
-            System.out.println(SQL);
             this.c.SQLExecute(SQL);
             
             JOptionPane.showMessageDialog(this, Msg);
